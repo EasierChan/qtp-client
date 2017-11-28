@@ -40,7 +40,7 @@ addSlot(..slots)
   }
 ```
 
-# Example
+## Example
 ```
 const qtpmodule = require('qtp-client');
 
@@ -66,7 +66,7 @@ qtp.addSlot({
 });
 ```
 
-# ChangLog
+## ChangLog
 
 - version 1.0.4
 
