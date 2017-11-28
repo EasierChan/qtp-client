@@ -39,3 +39,35 @@ addSlot(..slots)
     value: Buffer;
   }
 ```
+
+# Example
+```
+const qtpmodule = require('qtp-client');
+
+let qtp = new qtpmodule.QtpService();
+qtp.connect(22, '172.24.54.1');
+qtp.onConnect = ()=> {
+  console.info(`onConnect`);
+};
+
+qtp.onClose = ()=> {
+  console.info("onClose");
+};
+
+const kCMSService = 40;
+qtp.send(251, JSON.stringify({head: {realActor: ""}, body:{}}), kCMSService);
+
+qtp.addSlot({
+  service: kCMSService,
+  msgtype: 251,
+  callback: (msg)=> {
+    console.info(msg.toString());
+  }
+});
+```
+
+# ChangLog
+
+- version 1.0.4
+
+  fix subscribe issue;
