@@ -54,19 +54,18 @@ qtp.onClose = ()=> {
   console.info("onClose");
 };
 
-const kCMSService = 40;
-qtp.send(251, JSON.stringify({head: {realActor: ""}, body:{}}), kCMSService);
+qtp.sendToCMS("getProduct", JSON.stringify({}));
 
-qtp.addSlot({
-  service: kCMSService,
-  msgtype: 251,
-  callback: (msg)=> {
-    console.info(msg.toString());
-  }
-});
+qtp.addSlotOfCMS("getProduct", (body)=> {
+  console.info(body.toString());
+}, this);
 ```
 
 ## ChangLog
+
+- version 1.0.5
+  add CMS-special interface;
+
 
 - version 1.0.4
 
