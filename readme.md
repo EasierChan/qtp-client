@@ -45,23 +45,32 @@ addSlot(..slots)
 const qtpmodule = require('qtp-client');
 
 let qtp = new qtpmodule.QtpService();
-qtp.connect(22, '172.24.54.1');
-qtp.onConnect = ()=> {
+qtp.connect(6001, '172.24.13.23');
+qtp.onConnect = () => {
   console.info(`onConnect`);
+  qtp.send(101, JSON.stringify({ data: { user_id: 100101, password: "1223" } }), 10);
 };
 
-qtp.onClose = ()=> {
+qtp.onClose = () => {
   console.info("onClose");
 };
 
-qtp.sendToCMS("getProduct", JSON.stringify({}));
+qtp.addSlot({
+  service: 10,
+  msgtype: 102,
+  callback: (msg)=> {
+    qtp.sendToCMS("getProduct", JSON.stringify({ data: { body: { user_id: 100101 } } }));
+  }
+});
 
-qtp.addSlotOfCMS("getProduct", (body)=> {
-  console.info(body.toString());
+qtp.addSlotOfCMS("getProduct", (arg) => {
+  console.info("hello");
 }, this);
 ```
 
 ## ChangLog
+- version 1.0.6
+  update
 
 - version 1.0.5
   add CMS-special interface;
