@@ -69,6 +69,8 @@ qtp.addSlotOfCMS("getProduct", (arg) => {
 ```
 
 ## ChangLog
+- version 1.0.7
+  update
 - version 1.0.6
   update
 
