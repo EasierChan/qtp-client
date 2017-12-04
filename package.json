@@ -1,8 +1,8 @@
 {
   "name": "qtp-client",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "qtp-client",
-  "main": "test/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "node test/index.js"
   },
