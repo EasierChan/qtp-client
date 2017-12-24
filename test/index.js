@@ -14,11 +14,22 @@ qtp.onClose = () => {
 qtp.addSlot({
   service: 10,
   msgtype: 102,
-  callback: (msg)=> {
+  callback: (msg) => {
     qtp.sendToCMS("getProduct", JSON.stringify({ data: { body: { userid: 100101 } } }));
   }
 });
 
 qtp.addSlotOfCMS("getProduct", (arg) => {
-  console.info(arg.toString());
+  setTimeout(() => {
+    qtp.dispose();
+    qtp.connect(6001, '172.24.13.23');
+  }, 10000);
 }, this);
+
+qtp.addSlot({
+  service: 40,
+  msgtype: 1,
+  callback: (msg) => {
+    console.info(msg.toString());
+  }
+});
