@@ -8,7 +8,7 @@ qtp.onConnect = () => {
 };
 
 qtp.onTopic(5002, (key, body)=> {
-  console.info(msg.toString());
+  console.info(body.toString());
 }, this);
 
 qtp.onClose = () => {
