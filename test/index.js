@@ -1,9 +1,9 @@
 const qtpmodule = require('../lib/qtp.service');
 
 let qtp = new qtpmodule.QtpService();
-qtp.connect(6001, '172.24.13.23');
-qtp.onConnect = () => {
-  console.info(`onConnect`);
+qtp.connect(8001, '172.24.13.10');
+qtp.onConnect = (e) => {
+  console.info(`onConnect`, e);
   qtp.send(101, JSON.stringify({ data: { user_id: 19999, password: "2cb6703cc7cb7d564008ddbfaad68eE2" } }), 10);
 };
 
