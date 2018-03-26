@@ -1,10 +1,11 @@
 const qtpmodule = require('../lib/qtp.service');
 
 let qtp = new qtpmodule.QtpService();
-qtp.connect(8001, '139.159.224.13');
+qtp.connect(8001, '127.0.0.1');
 qtp.onConnect = (e) => {
   console.info(`onConnect`, e);
-  qtp.send(101, JSON.stringify({ data: { user_id: 19999, password: "2cb6703cc7cb7d564008ddbfaad68eE2" } }), 10);
+  qtp.send(101, JSON.stringify({ data: { user_id: 19999, password: "2cb6703cc7cb7d564008ddbfaad68eE2", ip: "123", mac: "123",
+  app_md5: "89d59beea4dc61b057bdb094fa47969f", app_version: "1.0.3.5", app_name: "chronos-ui"  } }), 10);
 };
 
 qtp.onTopic(5002, (key, body)=> {
@@ -20,8 +21,8 @@ qtp.addSlot({
   msgtype: 102,
   callback: (msg) => {
     console.info("logined", msg.toString())
-    // qtp.sendToCMS("getProduct", JSON.stringify({ data: { body: { userid: 100101 } } }));
-    qtp.send(1010, JSON.stringify({"data":{"body":{"acid":1000002},"head":{"reqsn":32,"userid":19999},"serviceid":40,"msgtype":1010}}), 40, 1);
+    qtp.sendToCMS("getProduct", JSON.stringify({ data: { head: {}, body: { } } }));
+    // qtp.send(1010, JSON.stringify({"data":{"body":{"acid":1000002},"head":{"reqsn":32,"userid":19999},"serviceid":40,"msgtype":1010}}), 40, 1);
     // qtp.subscribe(5002, [1114113], false, 50);
   }
 });
@@ -35,10 +36,10 @@ qtp.addSlot({
 })
 
 qtp.addSlotOfCMS("getProduct", (arg) => {
-  // setTimeout(() => {
-  //   qtp.dispose();
-  //   qtp.connect(6001, '172.24.13.23');
-  // }, 10000);
+  setTimeout(() => {
+    qtp.dispose();
+    qtp.connect(8001, '127.0.0.1');
+  }, 5000);
 }, this);
 
 qtp.addSlot({
