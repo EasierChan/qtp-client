@@ -1,7 +1,7 @@
 const qtpmodule = require('../lib/qtp.service');
 
 let qtp = new qtpmodule.QtpService();
-qtp.connect(8001, '127.0.0.1');
+qtp.connect(8001, '139.159.224.15');
 qtp.onConnect = (e) => {
   console.info(`onConnect`, e);
   qtp.send(101, JSON.stringify({ data: { user_id: 19999, password: "2cb6703cc7cb7d564008ddbfaad68eE2", ip: "123", mac: "123",
@@ -16,12 +16,20 @@ qtp.onClose = () => {
   console.info("onClose");
 };
 
+qtp.onError = ()=> {
+  console.info("onError");
+}
+
 qtp.addSlot({
   service: 10,
   msgtype: 102,
   callback: (msg) => {
     console.info("logined", msg.toString())
     qtp.sendToCMS("getProduct", JSON.stringify({ data: { head: {}, body: { } } }));
+    setTimeout(() => {
+      qtp.dispose();
+      qtp.connect(8001, '139.159.224.13');
+    }, 5000);
     // qtp.send(1010, JSON.stringify({"data":{"body":{"acid":1000002},"head":{"reqsn":32,"userid":19999},"serviceid":40,"msgtype":1010}}), 40, 1);
     // qtp.subscribe(5002, [1114113], false, 50);
   }
@@ -36,10 +44,10 @@ qtp.addSlot({
 })
 
 qtp.addSlotOfCMS("getProduct", (arg) => {
-  setTimeout(() => {
-    qtp.dispose();
-    qtp.connect(8001, '127.0.0.1');
-  }, 5000);
+  // setTimeout(() => {
+  //   qtp.dispose();
+  //   qtp.connect(8001, '127.0.0.1');
+  // }, 5000);
 }, this);
 
 qtp.addSlot({
