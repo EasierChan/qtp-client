@@ -16,7 +16,7 @@ const qtpmodule = require('../lib/qtp.service');
 // }).listen(8001);
 
 let qtp = new qtpmodule.QtpService();
-qtp.connect(8001, '139.159.224.13');
+qtp.connect(8012, '172.24.10.35');
 qtp.onConnect = (e) => {
   console.info(`onConnect`, e);
   
@@ -36,8 +36,6 @@ qtp.onClose = (addr) => {
 
 qtp.onError = ()=> {
   console.info("onError");
-  qtp.dispose();
-  qtp.connect(8001, '139.159.224.13');
 }
 
 qtp.addSlot({
