@@ -16,7 +16,7 @@ const qtpmodule = require('../lib/qtp.service');
 // }).listen(8001);
 
 let qtp = new qtpmodule.QtpService();
-qtp.connect(8012, '172.24.10.35');
+qtp.connect(8012, '172.24.10.35', false);
 qtp.onConnect = (e) => {
   console.info(`onConnect`, e);
   
@@ -65,7 +65,7 @@ qtp.addSlot({
     i= 1000;
     
     setTimeout(()=> {
-      qtp.connect(8001, '139.159.224.13');
+      qtp.connect(8001, '172.24.13.10', false);
     }, 1000)
   }, 5000);
 qtp.addSlotOfCMS("getProduct", (arg) => {
