@@ -29,14 +29,23 @@ qtp.onConnect = (e) => {
   // qtp.sendWithOption(101, options, "", 0);
   qtp.send(101, JSON.stringify({
     data: {
-      "user_id": 9999, "password": "c356042e4df23f932957ed9b9fa904E0", "dsn": "*", "cpuid": "*", "mac": "507b9dcd5b44", "ip": "172.16.1.36", "app_name": "cms", "app_version": "1.0.9.28", "app_md5": "3732d4516b1328d4fb5141be8fb97473"
+      "user_id": 9999, "password": "2cb6703cc7cb7d564008ddbfaad68eE2", "dsn": "*", "cpuid": "*", "mac": "507b9dcd5b44", "ip": "172.16.1.36", "app_name": "cms", "app_version": "1.0.9.28", "app_md5": "3732d4516b1328d4fb5141be8fb97473"
     }
   }), 10);
 };
 
-// qtp.onTopic(5002, (key, body)=> {
-//   console.info(body.toString());
-// }, this);
+/*
+// subscribeWithOption
+let options = [];
+let userOpt = new QtpMessageOption();
+userOpt.id = 111;
+userOpt.value = Buffer.from("1213");
+options.push(userOpt);
+qtp.subscribeWithOption([topic], options, null, 20, 0);
+qtp.onTopic(5002, (key, body)=> {
+  console.info(body.toString());
+}, this);
+*/
 
 // qtp.onClose = (addr) => {
 //   console.info("onClose", addr);
@@ -74,7 +83,7 @@ qtp.addSlot({
 qtp.addSlotOfCMS("saveTradeAccountPosition", (msg) => {
   console.info(msg.toString());
 }, this);
-qtp.connect(8001, '139.159.224.13');
+qtp.connect(8001, '172.24.13.42');
 // qtp.addSlot({
 //   service: 0,
 //   msgtype: 100,
